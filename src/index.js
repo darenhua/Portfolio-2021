@@ -6,6 +6,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 import Stats from 'stats.js';
+import createMeter from './meter.js'
 
 function createMachine(stateMachineDefinition) {
     const machine = {
@@ -168,8 +169,8 @@ function init() {
      * FPS METER
      */
     stats = new Stats()
-    // stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-    // document.body.appendChild(stats.dom)
+    stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild(stats.dom)
 
     /**
      * Debug GUI
@@ -330,6 +331,7 @@ let oldElapsedTime = 0
 
 function loop() {
     stats.begin()
+    createMeter();
 
     const elapsedTime = clock.getElapsedTime();
     const deltaTime = elapsedTime - oldElapsedTime

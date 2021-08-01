@@ -38,7 +38,9 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "@georgedoescode/spline": "^1.0.1",
     "dat.gui": "^0.7.7",
+    "simplex-noise": "^2.4.0",
     "stats.js": "^0.17.0"
   }
 }
