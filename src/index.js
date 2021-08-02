@@ -7,6 +7,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 import Stats from 'stats.js';
 import createMeter from './meter.js'
+import textEnter from './textAnimation';
 
 function createMachine(stateMachineDefinition) {
     const machine = {
@@ -279,6 +280,9 @@ function init() {
         // Update renderer
         renderer.setSize(sizes.width, sizes.height)
     })
+    window.addEventListener('click', () => {
+        textEnter();
+    });
 
     /**
      * Environnements
@@ -288,18 +292,25 @@ function init() {
 
     // Camera
     camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+    
+    //POSITION 1:
     camera.position.copy({x:5.66, y:0.52, z: 0.84});
     camera.rotation.x = 0;
     camera.rotation.y = 1.47;
     camera.rotation.z = 0;
+
+    //POSITION 2:
     // camera.position.copy({x:12.46, y:-6.83, z: -0.24});
     // camera.rotation.x = 0.01;
     // camera.rotation.y = 1.58;
     // camera.rotation.z = 0;
+
+    //POSITION 3:
     // camera.position.copy({x:8.61, y:-14.83, z: -0.24});
     // camera.rotation.x = 0.01;
     // camera.rotation.y = 1.49;
     // camera.rotation.z = 0;
+
     camera.setFocalLength(50);
     camera.updateProjectionMatrix();
     gui.add(camera.position, 'x').min(-10).max(50).step(0.01);

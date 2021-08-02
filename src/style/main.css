@@ -1,8 +1,15 @@
 @font-face {
   font-family: "Sora";
   /* need to use different font file for IE */
-  src: url("../../static/fonts/Sora-ExtraBold.ttf") format("truetype");
+  src: url("../fonts/Sora-Regular.ttf") format("truetype");
   font-weight: normal;
+}
+
+@font-face {
+  font-family: "Sora";
+  /* need to use different font file for IE */
+  src: url("../fonts/Sora-ExtraBold.ttf") format("truetype");
+  font-weight: bold;
 }
 
 * {
@@ -24,14 +31,6 @@ html {
   background: #000000;
 }
 
-p {
-  position: absolute;
-  top: 45%;
-  left: 200px;
-  color: white;
-  width: 300px;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -45,6 +44,11 @@ body {
   place-items: center;
 }
 
+.side-content {
+  display: flex;
+  align-items: center;
+}
+
 .meter-container {
   height: 10em;
   display: flex;
@@ -54,6 +58,17 @@ body {
   right: 50px;
   bottom: 0;
   margin: auto;
+  box-sizing: content-box;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(41, 41, 41, 1) 40%,
+    rgba(41, 41, 41, 1) 60%,
+    rgba(255, 255, 255, 0) 90%
+  );
+
+  padding: 100% 0;
+  opacity: 0.2;
 }
 
 svg {
@@ -64,4 +79,104 @@ svg {
   margin: 15px 0;
   filter: drop-shadow(2px 0 0 #eee) drop-shadow(-2px 0 0 #eee)
     drop-shadow(0 2px 0 #eee) drop-shadow(0 -2px 0 #eee);
+}
+
+.hero-text {
+  position: absolute;
+  font-family: Sora, sans-serif;
+  z-index: 2;
+  left: 80px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  /* display: none; */
+}
+
+.enter-bg {
+  height: 250px;
+  /* width: 600px; */
+  width: 0px;
+  transform: rotate(10deg) skewY(-10deg);
+
+  position: relative;
+  background-image: radial-gradient(
+      at 40% 20%,
+      hsla(28, 100%, 74%, 1) 0,
+      transparent 50%
+    ),
+    radial-gradient(at 82% 0%, hsla(189, 88%, 59%, 1) 0, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(50, 100%, 48%, 1) 0, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 1) 0, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 1) 0, transparent 50%),
+    radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 1) 0, transparent 50%),
+    radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 1) 0, transparent 50%);
+}
+
+.enter-overlay {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.text-content {
+  z-index: 2;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  position: absolute;
+}
+
+.text-content.original {
+  opacity: 0;
+}
+
+.enter-line {
+  height: 0px;
+  width: 6px;
+  transform: rotate(10deg) skewY(-10deg);
+  position: absolute;
+  left: 1px;
+  display: block;
+  background: #000;
+}
+
+.hero-text .heading {
+  width: 600px;
+  margin-left: 30px;
+}
+
+.hero-text .subheading {
+  margin-top: 10px;
+  width: 500px;
+  margin-left: 30px;
+
+  line-height: 1.4;
+}
+
+.heading {
+  font-size: 85px;
+  font-weight: bold;
+}
+
+.subheading {
+  font-size: 32px;
+  font-weight: normal;
+}
+
+.gradient-accent {
+  background: linear-gradient(
+    39deg,
+    rgba(240, 199, 17, 1) 0%,
+    rgba(255, 255, 255, 1) 90%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-accent.duplicate {
+  background: black;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
