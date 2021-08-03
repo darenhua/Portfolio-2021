@@ -281,7 +281,7 @@ function init() {
         renderer.setSize(sizes.width, sizes.height)
     })
     window.addEventListener('click', () => {
-        textEnter();
+        textEnter(3);
     });
 
     /**
@@ -294,22 +294,22 @@ function init() {
     camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
     
     //POSITION 1:
-    camera.position.copy({x:5.66, y:0.52, z: 0.84});
-    camera.rotation.x = 0;
-    camera.rotation.y = 1.47;
-    camera.rotation.z = 0;
+    // camera.position.copy({x:5.66, y:0.52, z: 0.84});
+    // camera.rotation.x = 0;
+    // camera.rotation.y = 1.47;
+    // camera.rotation.z = 0;
 
     //POSITION 2:
-    // camera.position.copy({x:12.46, y:-6.83, z: -0.24});
+    // camera.position.copy({x:12.98, y:-6.82, z: -0.83});
     // camera.rotation.x = 0.01;
-    // camera.rotation.y = 1.58;
+    // camera.rotation.y = 1.6;
     // camera.rotation.z = 0;
 
     //POSITION 3:
-    // camera.position.copy({x:8.61, y:-14.83, z: -0.24});
-    // camera.rotation.x = 0.01;
-    // camera.rotation.y = 1.49;
-    // camera.rotation.z = 0;
+    camera.position.copy({x:8.61, y:-14.83, z: -0.24});
+    camera.rotation.x = 0.01;
+    camera.rotation.y = 1.49;
+    camera.rotation.z = 0;
 
     camera.setFocalLength(50);
     camera.updateProjectionMatrix();
