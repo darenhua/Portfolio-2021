@@ -54,6 +54,7 @@ hero_page: {
         camera.rotation.y = 1.6;
         camera.rotation.z = 0;
         textEnter(2);
+        reset(2);    
         },
     },
     },
@@ -81,6 +82,7 @@ isec_page: {
         camera.rotation.y = 1.49;
         camera.rotation.z = 0;
         textEnter(3);
+        reset(3);    
         },
     },
     cancel: {
@@ -91,7 +93,12 @@ isec_page: {
         camera.rotation.x = 0;
         camera.rotation.y = 1.47;
         camera.rotation.z = 0;
-        textEnter(1);
+        const hero_bg = document.querySelector(".hero-enter-bg");
+        const hero_text = document.querySelector(".hero-text-content.original");
+    
+        hero_bg.style.width = "0";
+        hero_text.style.clipPath = "polygon(0 0, 100% 0, 98% 100%, 0 100%)";   
+        reset(1);    
         },
     }
     },
@@ -124,6 +131,7 @@ aves_page: {
         camera.rotation.y = 1.6;
         camera.rotation.z = 0;
         textEnter(2);
+        reset(2);    
         },
 
     }
@@ -251,19 +259,15 @@ function init() {
             //bug: flickering between 2 and 3 or 5 and 6 or 4 and 3...
             if (state === "hero_page") {
                 state = machine.transition(state, 'switch');
-                reset();    
             } else if (state === "isec_page") {
                 state = machine.transition(state, 'cancel');
-                reset();
             }
         } 
         if (scrollCounter === 6) {
             if (state === "isec_page") {
                 state = machine.transition(state, 'switch');
-                reset();    
             } else if (state === "aves_page") {
                 state = machine.transition(state, 'cancel');
-                reset();
             }
         } 
         

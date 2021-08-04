@@ -190,6 +190,16 @@ svg {
   color: #363636;
 }
 
+.duplicate .technology-link {
+  color: #363636;
+  text-decoration: none;
+}
+
+.original .technology-link {
+  color: black;
+  text-decoration: none;
+}
+
 .isec-text-content {
   position: absolute;
   z-index: 2;
@@ -240,11 +250,6 @@ img {
   opacity: 0;
 }
 
-.isec-logo:hover {
-  animation-duration: 3s;
-  animation-name: pure-right-tilt;
-}
-
 .isec-work-number {
   position: absolute;
   z-index: 1;
@@ -255,10 +260,9 @@ img {
   font-family: Sora, sans-serif;
 }
 
-.isec-work-number:hover {
-  cursor: pointer;
-  animation-name: left-tilt;
-  animation-duration: 1.5s;
+.isec-logo:hover {
+  animation-duration: 3s;
+  animation-name: right-tilt;
 }
 
 .isec-work-number h3 {
@@ -272,15 +276,9 @@ img {
   font-weight: bold;
 }
 
-@keyframes pure-right-tilt {
+@keyframes right-tilt {
   to {
     transform: rotate(10deg);
-  }
-}
-
-@keyframes left-tilt {
-  to {
-    transform: rotate(-10deg) translateX(-35px);
   }
 }
 
@@ -363,22 +361,16 @@ img {
 
 .aves-logo:hover {
   animation-duration: 3s;
-  animation-name: pure-left-tilt;
+  animation-name: left-tilt;
 }
 
 .aves-logo img {
   height: 40px;
 }
 
-@keyframes pure-left-tilt {
+@keyframes left-tilt {
   to {
     transform: rotate(-10deg);
-  }
-}
-
-@keyframes right-tilt {
-  to {
-    transform: rotate(10deg) translateX(35px);
   }
 }
 
@@ -390,12 +382,6 @@ img {
   color: white;
   opacity: 0;
   font-family: Sora, sans-serif;
-}
-
-.aves-work-number:hover {
-  cursor: pointer;
-  animation-name: right-tilt;
-  animation-duration: 1.5s;
 }
 
 .aves-work-number h3 {
