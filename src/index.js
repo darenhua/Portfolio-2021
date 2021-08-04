@@ -7,12 +7,12 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 import Stats from 'stats.js';
 import createMeter from './meter.js'
-import textEnter from './textAnimation';
-
+import {textEnter, reset} from './textAnimation';
 function createMachine(stateMachineDefinition) {
     const machine = {
       value: stateMachineDefinition.initialState,
       transition(currentState, event) {
+          debugger;
         const currentStateDefinition = stateMachineDefinition[currentState]
         const destinationTransition = currentStateDefinition.transitions[event]
         if (!destinationTransition) {
@@ -32,127 +32,104 @@ function createMachine(stateMachineDefinition) {
   }
   
 const machine = createMachine({
-initialState: 'default',
-default: {
+initialState: 'hero_page',
+hero_page: {
     actions: {
     onEnter() {
         console.log('off: onEnter')
+        //SWIPE IN
     },
     onExit() {
         console.log('off: onExit')
+        //SWIPE OUT
     },
     },
     transitions: {
     switch: {
-        target: 'select_default',
+        target: 'isec_page',
         action() {
-        console.log('transition action for "switch" in "default" state')
-
+        console.log('transition action for "switch" in "hero_page" state')
+        camera.position.copy({x:12.98, y:-6.82, z: -0.83});
+        camera.rotation.x = 0.01;
+        camera.rotation.y = 1.6;
+        camera.rotation.z = 0;
+        textEnter(2);
         },
     },
     },
 },
-select_default: {
+isec_page: {
     actions: {
     onEnter() {
         console.log('on: onEnter')
+        //SWIPE IN
+
     },
     onExit() {
         console.log('on: onExit')
+        //swipe out
+
     },
     },
     transitions: {
     switch: {
-        target: 'select_active',
+        target: 'aves_page',
         action() {
         console.log('transition action for "switch" in "select-default" state')
-
+        camera.position.copy({x:8.61, y:-14.83, z: -0.24});
+        camera.rotation.x = 0.01;
+        camera.rotation.y = 1.49;
+        camera.rotation.z = 0;
+        textEnter(3);
         },
     },
     cancel: {
-        target: "default",
+        target: 'hero_page',
         action() {
         console.log('transition action for "cancel" in "select-default" state')
-
+        camera.position.copy({x:5.66, y:0.52, z: 0.84});
+        camera.rotation.x = 0;
+        camera.rotation.y = 1.47;
+        camera.rotation.z = 0;
+        textEnter(1);
         },
-
     }
     },
 },
-select_active: {
+aves_page: {
     actions: {
     onEnter() {
         console.log('on: onEnter')
+        //SWIPE IN
+
     },
     onExit() {
         console.log('on: onExit')
+        //swipe out
     },
     },
     transitions: {
-    switch: {
-        target: 'select_entered',
-        action() {
-        console.log('transition action for "switch" in "select-active" state')
-        },  
-    },
+    // switch: {
+    //     target: 'select_entered',
+    //     action() {
+    //     console.log('transition action for "switch" in "select-active" state')
+    //     },  
+    // },
     cancel: {
-        target: "default",
+        target: "isec_page",
         action() {
         console.log('transition action for "cancel" in "select-default" state')
-
-        },
-
-    }
-
-    },
-},
-select_entered: {
-    actions: {
-    onEnter() {
-        console.log('on: onEnter')
-    },
-    onExit() {
-        console.log('on: onExit')
-    },
-    },
-    transitions: {
-    switch: {
-        target: 'complete',
-        action() {
-        console.log('transition action for "switch" in "select-default" state')
-
-        },  
-    },
-    cancel: {
-        target: "default",
-        action() {
-        console.log('transition action for "cancel" in "select-default" state')
-
+        camera.position.copy({x:12.98, y:-6.82, z: -0.83});
+        camera.rotation.x = 0.01;
+        camera.rotation.y = 1.6;
+        camera.rotation.z = 0;
+        textEnter(2);
         },
 
     }
 
     },
 },
-
-complete: {
-    actions: {
-    onEnter() {
-        console.log('on: onEnter')
-    },
-    onExit() {
-        console.log('on: onExit')
-    },
-    },
-    transitions: {
-    switch: {
-        target: 'default',
-        action() {
-        console.log('transition action for "switch" in "default" state')
-        },
-    },
-    },
-}
 })
   
 // Globals
@@ -253,19 +230,68 @@ function init() {
     /**
      * Responsive Canvas
      */
-    let upscrollCounter = 0;
-    let downscrollCounter = 0;
+    let scrollCounter = 0;
+    let offset;
+    let currentBlob;
+    document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", "0%");
+    document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", "0%");
+    document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", "0%");
+
     window.addEventListener('wheel', (event) => {
+        // console.log(`${scrollCounter}   ${downscrollCounter}`);
+        // console.log(event.deltaY)
         if (event.deltaY > 0) {
-            upscrollCounter += 1;
-            downscrollCounter = 0;
-        } else {
-            downscrollCounter += 1;
-            upscrollCounter = 0;
+            if (scrollCounter < 9) {
+                scrollCounter += 1;
+            }
+        } else if (scrollCounter > 0) {
+            scrollCounter -= 1;
         }
-        console.log(`${upscrollCounter}   ${downscrollCounter}`)
+        if (scrollCounter === 3) {
+            //bug: flickering between 2 and 3 or 5 and 6 or 4 and 3...
+            if (state === "hero_page") {
+                state = machine.transition(state, 'switch');
+                reset();    
+            } else if (state === "isec_page") {
+                state = machine.transition(state, 'cancel');
+                reset();
+            }
+        } 
+        if (scrollCounter === 6) {
+            if (state === "isec_page") {
+                state = machine.transition(state, 'switch');
+                reset();    
+            } else if (state === "aves_page") {
+                state = machine.transition(state, 'cancel');
+                reset();
+            }
+        } 
+        
+        offset = (scrollCounter % 3) * 33.33;
+        currentBlob = Math.floor(scrollCounter / 3);
+        if (currentBlob == 0) {
+            document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `${offset}%`);
+        } else if (currentBlob == 1) {
+            document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", `${offset}%`);
+        } else if (currentBlob == 2) {
+            document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", `${offset}%`);
+        }
+        if (scrollCounter == 9) {
+            document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", `100%`);
+
+        }
+        // document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", "0%");
+        // document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", "0%");
+    
+
         //  camera.position.y += event.deltaY;
     });
+
 
     window.addEventListener('resize', () =>
     {
@@ -280,9 +306,6 @@ function init() {
         // Update renderer
         renderer.setSize(sizes.width, sizes.height)
     })
-    window.addEventListener('click', () => {
-        textEnter(3);
-    });
 
     /**
      * Environnements
@@ -294,10 +317,11 @@ function init() {
     camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
     
     //POSITION 1:
-    // camera.position.copy({x:5.66, y:0.52, z: 0.84});
-    // camera.rotation.x = 0;
-    // camera.rotation.y = 1.47;
-    // camera.rotation.z = 0;
+    textEnter(1);
+    camera.position.copy({x:5.66, y:0.52, z: 0.84});
+    camera.rotation.x = 0;
+    camera.rotation.y = 1.47;
+    camera.rotation.z = 0;
 
     //POSITION 2:
     // camera.position.copy({x:12.98, y:-6.82, z: -0.83});
@@ -306,10 +330,10 @@ function init() {
     // camera.rotation.z = 0;
 
     //POSITION 3:
-    camera.position.copy({x:8.61, y:-14.83, z: -0.24});
-    camera.rotation.x = 0.01;
-    camera.rotation.y = 1.49;
-    camera.rotation.z = 0;
+    // camera.position.copy({x:8.61, y:-14.83, z: -0.24});
+    // camera.rotation.x = 0.01;
+    // camera.rotation.y = 1.49;
+    // camera.rotation.z = 0;
 
     camera.setFocalLength(50);
     camera.updateProjectionMatrix();

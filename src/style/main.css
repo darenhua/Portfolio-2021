@@ -197,7 +197,7 @@ svg {
   color: #363636;
 
   font-family: Sora;
-  right: 130px;
+  right: 120px;
   bottom: 50px;
   padding: 50px;
   border-radius: 10px;
@@ -213,6 +213,85 @@ svg {
   width: 300px;
   color: #202020;
   margin-top: 10px;
+}
+
+.isec-text a {
+  width: 200px;
+  color: #202020;
+  text-decoration: none;
+}
+
+img {
+  max-height: 100%;
+}
+
+.link-img {
+  height: 36px;
+}
+
+.isec-logo {
+  position: absolute;
+  z-index: 2;
+  right: 100px;
+  top: 80px;
+  background: white;
+  padding: 10px 10px 6px 10px;
+  border-radius: 8px;
+  opacity: 0;
+}
+
+.isec-logo:hover {
+  animation-duration: 3s;
+  animation-name: pure-right-tilt;
+}
+
+.isec-work-number {
+  position: absolute;
+  z-index: 1;
+  right: 495px;
+  bottom: 150px;
+  color: white;
+  opacity: 0;
+  font-family: Sora, sans-serif;
+}
+
+.isec-work-number:hover {
+  cursor: pointer;
+  animation-name: left-tilt;
+  animation-duration: 1.5s;
+}
+
+.isec-work-number h3 {
+  font-size: 150px;
+  line-height: 1;
+  text-align: right;
+}
+
+.isec-work-number p {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+@keyframes pure-right-tilt {
+  to {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes left-tilt {
+  to {
+    transform: rotate(-10deg) translateX(-35px);
+  }
+}
+
+.isec-logo img {
+  height: 60px;
+}
+
+.isec-text a:hover {
+  cursor: pointer;
+  filter: invert(40%) sepia(41%) saturate(1477%) hue-rotate(321deg)
+    brightness(86%) contrast(89%);
 }
 
 .isec-enter-line {
@@ -239,6 +318,10 @@ svg {
   border-radius: 10px;
 }
 
+.aves-text .subheading {
+  font-size: 20px;
+}
+
 .aves-text .body-text {
   width: 300px;
   color: #202020;
@@ -253,4 +336,85 @@ svg {
   top: 90px;
   display: block;
   background: white;
+}
+
+.aves-text a {
+  width: 200px;
+  color: #202020;
+  text-decoration: none;
+}
+
+.aves-text a:hover {
+  cursor: pointer;
+  filter: invert(40%) sepia(41%) saturate(1477%) hue-rotate(321deg)
+    brightness(86%) contrast(89%);
+}
+
+.aves-logo {
+  position: absolute;
+  z-index: 2;
+  left: 60px;
+  top: 100px;
+  background: white;
+  padding: 10px 10px 6px 10px;
+  border-radius: 8px;
+  opacity: 0;
+}
+
+.aves-logo:hover {
+  animation-duration: 3s;
+  animation-name: pure-left-tilt;
+}
+
+.aves-logo img {
+  height: 40px;
+}
+
+@keyframes pure-left-tilt {
+  to {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes right-tilt {
+  to {
+    transform: rotate(10deg) translateX(35px);
+  }
+}
+
+.aves-work-number {
+  position: absolute;
+  z-index: 1;
+  left: 460px;
+  bottom: 150px;
+  color: white;
+  opacity: 0;
+  font-family: Sora, sans-serif;
+}
+
+.aves-work-number:hover {
+  cursor: pointer;
+  animation-name: right-tilt;
+  animation-duration: 1.5s;
+}
+
+.aves-work-number h3 {
+  font-size: 150px;
+  line-height: 1;
+  text-align: left;
+}
+
+.aves-work-number p {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.achievement {
+  font-weight: bold;
+  color: rgb(216, 169, 17);
+}
+
+.freelance {
+  font-weight: bold;
+  color: rgb(14, 163, 186);
 }
