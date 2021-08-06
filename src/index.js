@@ -95,8 +95,10 @@ isec_page: {
         camera.rotation.z = 0;
         const hero_bg = document.querySelector(".hero-enter-bg");
         const hero_text = document.querySelector(".hero-text-content.original");
-    
+        const scroll_btn = document.querySelector(".scroll-button");
+
         hero_bg.style.width = "0";
+        scroll_btn.style.opacity = "1";
         hero_text.style.clipPath = "polygon(0 0, 100% 0, 98% 100%, 0 100%)";   
         reset(1);    
         },
@@ -116,16 +118,23 @@ aves_page: {
     },
     },
     transitions: {
-    // switch: {
-    //     target: 'select_entered',
-    //     action() {
-    //     console.log('transition action for "switch" in "select-active" state')
-    //     },  
-    // },
+    switch: {
+        target: 'cta_page',
+        action() {
+        console.log('transition action for "switch" in "select-active" state');
+        camera.position.copy({x:12.98, y:-20.82, z: -0.83});
+        camera.rotation.x = 0.01;
+        camera.rotation.y = 1.6;
+        camera.rotation.z = 0;
+        textEnter(4);
+        reset(4);    
+
+        },  
+    },
     cancel: {
         target: "isec_page",
         action() {
-        console.log('transition action for "cancel" in "select-default" state')
+        console.log('transition action for "cancel" in "select-default" state');
         camera.position.copy({x:12.98, y:-6.82, z: -0.83});
         camera.rotation.x = 0.01;
         camera.rotation.y = 1.6;
@@ -138,6 +147,41 @@ aves_page: {
 
     },
 },
+cta_page: {
+    actions: {
+    onEnter() {
+        console.log('on: onEnter')
+        //SWIPE IN
+
+    },
+    onExit() {
+        console.log('on: onExit')
+        //swipe out
+    },
+    },
+    transitions: {
+    // switch: {
+    //     target: 'select_entered',
+    //     action() {
+    //     console.log('transition action for "switch" in "select-active" state')
+    //     },  
+    // },
+    cancel: {
+        target: "aves_page",
+        action() {
+        console.log('transition action for "cancel" in "select-default" state')
+        camera.position.copy({x:8.61, y:-14.83, z: -0.24});
+        camera.rotation.x = 0.01;
+        camera.rotation.y = 1.49;
+        camera.rotation.z = 0;
+        textEnter(3);
+        reset(3);    
+        },
+
+    }
+
+    },
+}
 })
   
 // Globals
@@ -234,7 +278,6 @@ function init() {
 
         }
     )
-
     /**
      * Responsive Canvas
      */
@@ -244,12 +287,13 @@ function init() {
     document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", "0%");
     document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", "0%");
     document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", "0%");
+    document.querySelector('#gradient4 > #gradientStop2').setAttribute("offset", "0%");
 
     window.addEventListener('wheel', (event) => {
         // console.log(`${scrollCounter}   ${downscrollCounter}`);
         // console.log(event.deltaY)
         if (event.deltaY > 0) {
-            if (scrollCounter < 9) {
+            if (scrollCounter < 12) {
                 scrollCounter += 1;
             }
         } else if (scrollCounter > 0) {
@@ -270,6 +314,13 @@ function init() {
                 state = machine.transition(state, 'cancel');
             }
         } 
+        if (scrollCounter === 9) {
+            if (state === "aves_page") {
+                state = machine.transition(state, 'switch');
+            } else if (state === "cta_page") {
+                state = machine.transition(state, 'cancel');
+            }
+        } 
         
         offset = (scrollCounter % 3) * 33.33;
         currentBlob = Math.floor(scrollCounter / 3);
@@ -282,11 +333,17 @@ function init() {
             document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
             document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", `100%`);
             document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", `${offset}%`);
-        }
-        if (scrollCounter == 9) {
+        } else if (currentBlob == 3) {
             document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
             document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", `100%`);
             document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient4 > #gradientStop2').setAttribute("offset", `${offset}%`);
+        }
+        if (scrollCounter == 12) {
+            document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient4 > #gradientStop2').setAttribute("offset", `100%`);
 
         }
         // document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", "0%");
@@ -296,6 +353,13 @@ function init() {
         //  camera.position.y += event.deltaY;
     });
 
+    document.querySelector(".scroll-button").addEventListener("click", () => {
+        if (state === "hero_page") {
+            state = machine.transition(state, 'switch');
+            scrollCounter = 3;
+            document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
+        }
+    });
 
     window.addEventListener('resize', () =>
     {

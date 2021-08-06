@@ -3,10 +3,8 @@ import gsap from 'gsap'
 let tl1 = gsap.timeline();
 let tl2 = gsap.timeline();
 let tl3 = gsap.timeline();
+let tl4 = gsap.timeline();
 
-function wordUpdate() {
-    
-}
 
 function textEnter(number) {
     switch (number) {
@@ -37,6 +35,7 @@ function textEnter(number) {
         tl1.to(".hero-enter-line", {left: 0, duration: 1}, "bg-retract");
         tl1.to(".hero-enter-bg", {width: 0, duration: 1}, "bg-retract");
         tl1.to(".hero-enter-line", {height: 0, duration: .5}, "line-retract");    
+        tl1.to(".scroll-button", {opacity: 1, duration: 1.5}, "line-retract");    
     }
     function ani2() {
         // const tl = gsap.timeline();
@@ -81,36 +80,57 @@ function reset(number) {
             tl2 = gsap.timeline();
             tl3.kill();
             tl3 = gsap.timeline();
+            tl4.kill();
+            tl4 = gsap.timeline();
             clear2();
             clear3();
+            clear4()
             break;
         case 2:
             tl1.kill();
             tl1 = gsap.timeline();
             tl3.kill();
             tl3 = gsap.timeline();
+            tl4.kill();
+            tl4 = gsap.timeline();
             clear1();
             clear3();
+            clear4()
             break;
         case 3:
             tl1.kill();
             tl1 = gsap.timeline();
             tl2.kill();
             tl2 = gsap.timeline();
+            tl4.kill();
+            tl4 = gsap.timeline();
             clear1();
             clear2();
+            clear4()
             break;
+        case 4:
+            tl1.kill();
+            tl1 = gsap.timeline();
+            tl2.kill();
+            tl2 = gsap.timeline();
+            tl3.kill();
+            tl3 = gsap.timeline();
+            clear1();
+            clear2();
+            clear3();
     }
     function clear1(){
         const hero_line = document.querySelector(".hero-enter-line");
         const hero_bg = document.querySelector(".hero-enter-bg");
         //two hero texts
         const hero_text = document.querySelectorAll(".hero-text-content");
-    
+        const scroll_btn = document.querySelector(".scroll-button");
+        
         hero_line.style.height = ""; //unnecessary i believe
         hero_line.style.left = "";
         hero_bg.style.width = "";
-        
+        scroll_btn.style.opacity = "";
+
         hero_text.forEach((obj)=> {
             obj.style.clipPath = "";
         })    
@@ -120,7 +140,7 @@ function reset(number) {
         const isec_text = document.querySelector(".isec-text-content");
         const isec_logo = document.querySelector(".isec-logo");
         const isec_work_text = document.querySelector(".isec-work-number");
-    
+        
         isec_line.style.height = ""; 
         isec_line.style.width = "";
         isec_line.style.top = "";
@@ -141,6 +161,9 @@ function reset(number) {
         aves_logo.style.opacity = "";
         aves_work_text.style.opacity = "";
     
+    }
+    function clear4(){
+
     }
 }
 
