@@ -30,7 +30,8 @@ function createMachine(stateMachineDefinition) {
     }
     return machine
   }
-  
+
+let visited_last_page = false;
 const machine = createMachine({
 initialState: 'hero_page',
 hero_page: {
@@ -96,9 +97,11 @@ isec_page: {
         const hero_bg = document.querySelector(".hero-enter-bg");
         const hero_text = document.querySelector(".hero-text-content.original");
         const scroll_btn = document.querySelector(".scroll-button");
+        const contact_btn = document.querySelector(".contact-button");
 
         hero_bg.style.width = "0";
         scroll_btn.style.opacity = "1";
+        contact_btn.style.opacity = "1";
         hero_text.style.clipPath = "polygon(0 0, 100% 0, 98% 100%, 0 100%)";   
         reset(1);    
         },
@@ -126,7 +129,6 @@ aves_page: {
         camera.rotation.x = 0.01;
         camera.rotation.y = 1.6;
         camera.rotation.z = 0;
-        textEnter(4);
         reset(4);    
 
         },  
@@ -316,6 +318,18 @@ function init() {
         } 
         if (scrollCounter === 9) {
             if (state === "aves_page") {
+                if (!visited_last_page) {
+                    textEnter(4);
+                    visited_last_page = true;
+                } else {
+                    const cta_bg = document.querySelector(".cta-text");
+                    const cta_content = document.querySelector(".cta-bg");
+            
+                    cta_bg.style.opacity = "1";
+                    cta_bg.style.display = "grid";
+                    cta_content.style.transform = "translateY(0px)";
+                    
+                }
                 state = machine.transition(state, 'switch');
             } else if (state === "cta_page") {
                 state = machine.transition(state, 'cancel');
@@ -358,6 +372,31 @@ function init() {
             state = machine.transition(state, 'switch');
             scrollCounter = 3;
             document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
+        }
+    });
+
+    document.querySelector(".contact-button").addEventListener("click", () => {
+        if (state === "hero_page") {
+            state = machine.transition(state, 'switch');
+            state = machine.transition(state, 'switch');
+            state = machine.transition(state, 'switch');
+
+            if (!visited_last_page) {
+                textEnter(4);    
+                visited_last_page = true;
+            } else {
+                const cta_bg = document.querySelector(".cta-text");
+                const cta_content = document.querySelector(".cta-bg");
+                cta_bg.style.opacity = "1";
+                cta_bg.style.display = "grid";
+                cta_content.style.transform = "translateY(0px)";
+                
+            }
+            scrollCounter = 9;
+
+            document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", `100%`);
+            document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", `100%`);
         }
     });
 

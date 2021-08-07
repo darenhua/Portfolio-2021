@@ -17,6 +17,9 @@ function textEnter(number) {
         case 3:
             ani3();
             break;
+        case 4:
+            ani4();
+            break;
     }
     function ani1() {
         // const tl = gsap.timeline();
@@ -36,6 +39,7 @@ function textEnter(number) {
         tl1.to(".hero-enter-bg", {width: 0, duration: 1}, "bg-retract");
         tl1.to(".hero-enter-line", {height: 0, duration: .5}, "line-retract");    
         tl1.to(".scroll-button", {opacity: 1, duration: 1.5}, "line-retract");    
+        tl1.to(".contact-button", {opacity: 1, duration: 1.5}, "line-retract+=.2");    
     }
     function ani2() {
         // const tl = gsap.timeline();
@@ -54,7 +58,6 @@ function textEnter(number) {
         tl2.to(".isec-enter-line", {width: 0, duration: .5}, "line-retract");
     };
     function ani3() {
-        const tl = gsap.timeline();
         tl3.addLabel("line-extend", 0);
         tl3.addLabel("show", .5);
         tl3.addLabel("line-retract", 2);
@@ -68,6 +71,16 @@ function textEnter(number) {
         tl3.to(".aves-work-number", {opacity: 0, duration: .5}, "show+=1.4");
         tl3.to(".aves-text-content", {clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", duration: 1}, "show");
         tl3.to(".aves-enter-line", {width: 0, duration: .5}, "line-retract");
+
+    };
+    function ani4() {
+        tl4.addLabel("bg-fadein", 0);
+        tl4.addLabel("appear", .5);
+        document.querySelector(".cta-text").style.display = "grid";
+
+        tl4.to(".cta-text", { opacity: 1, duration: .5 }, "bg-fadein");
+        tl4.to(".cta-bg", { y: 0, duration: 1 }, "appear");
+
 
     };
 }
@@ -125,11 +138,13 @@ function reset(number) {
         //two hero texts
         const hero_text = document.querySelectorAll(".hero-text-content");
         const scroll_btn = document.querySelector(".scroll-button");
+        const contact_btn = document.querySelector(".contact-button");
         
         hero_line.style.height = ""; //unnecessary i believe
         hero_line.style.left = "";
         hero_bg.style.width = "";
         scroll_btn.style.opacity = "";
+        contact_btn.style.opacity = "";
 
         hero_text.forEach((obj)=> {
             obj.style.clipPath = "";
@@ -163,7 +178,12 @@ function reset(number) {
     
     }
     function clear4(){
+        const cta_bg = document.querySelector(".cta-text");
+        const cta_content = document.querySelector(".cta-bg");
 
+        cta_bg.style.display = "";
+        cta_bg.style.opacity = "";
+        cta_content.style.transform = "";
     }
 }
 

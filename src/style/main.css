@@ -49,9 +49,51 @@ body {
   align-items: center;
 }
 
+/**f uture refactor: use section.loading-meter as position relative, and position with that, then use absolute-relative thing? **/
+
+.scroll-nudge {
+  position: absolute;
+  z-index: 101;
+  right: 65px;
+  width: 30px;
+  margin-top: -10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.8;
+}
+
+.nudge-arrow {
+  margin-top: -2px;
+  position: relative;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
+
+.nudge-arrow:nth-child(odd) {
+  animation: pulse 1s ease infinite alternate;
+}
+.nudge-arrow:nth-child(even) {
+  animation: pulse 1s ease infinite alternate 250ms;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
 .meter-container {
   height: 15em;
   /**^ Change this to get bigger/smaller blobs**/
+  z-index: 100;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -173,18 +215,28 @@ svg {
 
 .scroll-button {
   margin-left: 30px;
-  margin-top: 300px;
+  margin-top: 310px;
+  opacity: 0;
+}
+
+.button-style {
+  background-color: #e7e7e7;
+  border-radius: 2px;
   border: none;
   text-decoration: none;
   padding: 15px 30px;
   font-weight: bold;
   font-size: 16px;
   color: #363636;
-  border-radius: 2px;
-  opacity: 0;
-  background-color: #e7e7e7;
   font-family: Sora, sans-serif;
   transition: background-color 0.5s ease;
+}
+
+.contact-button {
+  margin-left: 50px;
+  margin-top: 310px;
+  opacity: 0;
+  background-color: #49b1fb;
 }
 
 .scroll-button:hover {
@@ -193,6 +245,14 @@ svg {
 
 .scroll-button:active {
   background-color: #bbbbbb;
+}
+
+.contact-button:hover {
+  background-color: #2ea7fd;
+}
+
+.contact-button:active {
+  background-color: #0596ff;
 }
 
 .gradient-accent {
@@ -458,3 +518,124 @@ img {
   right: 0;
   background: #000;
 } */
+
+.cta-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #363636;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  display: none;
+  z-index: 2;
+}
+
+.cta-bg {
+  position: relative;
+  width: 62.5%;
+  height: 100%;
+  top: 30px;
+  border-radius: 20px;
+  z-index: 3;
+  padding: 40px 110px;
+  transform: translateY(700px);
+  background-color: #e7e7e7;
+}
+
+.cta-bg:before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  left: 15px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #c1c1c1;
+}
+.cta-bg:after {
+  /* Additional pseudo-element added */
+  content: "";
+  background: #e7e7e7;
+  border-radius: 20px;
+
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.cta-bg div {
+  position: relative;
+  z-index: 99;
+}
+
+.cta-text-content {
+  font-family: Sora, sans-serif;
+  color: #282828;
+}
+
+.cta-text-content .heading {
+  font-size: 52px;
+}
+
+.cta-text-content .subheading {
+  font-size: 20px;
+  margin-top: 5px;
+  width: 500px;
+}
+
+.temporary {
+  width: 100%;
+  height: 250px;
+  margin: 0 auto;
+  margin-top: 20px;
+  background: #d7d7d7;
+  border-radius: 20px;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+}
+
+.temporary .temp-content {
+  font-family: Sora, sans-serif;
+  font-weight: bold;
+}
+
+.cta-email {
+  width: 280px;
+  height: 50px;
+  margin-top: 30px;
+  display: flex;
+  float: right;
+  font-family: Sora, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  align-items: center;
+}
+
+.cta-email img {
+  width: 50px;
+  align-self: center;
+}
+
+.cta-email div {
+  width: 80%;
+  text-align: right;
+}
+
+.cta-email div a {
+  text-decoration: none;
+  color: #c71919;
+}
+
+.cta-email div a:hover {
+  text-decoration: none;
+  color: #8c1515;
+}
