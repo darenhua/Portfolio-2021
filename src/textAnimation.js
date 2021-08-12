@@ -22,7 +22,6 @@ function textEnter(number) {
             break;
     }
     function ani1() {
-        // const tl = gsap.timeline();
         tl1.addLabel("line-extend", 0);
         tl1.addLabel("bg-extend", .5);
         tl1.addLabel("bg-retract", 2.3);
@@ -42,7 +41,6 @@ function textEnter(number) {
         tl1.to(".contact-button", {opacity: 1, duration: 1.5}, "line-retract+=.2");    
     }
     function ani2() {
-        // const tl = gsap.timeline();
         tl2.addLabel("line-extend", 0);
         tl2.addLabel("show", .5);
         tl2.addLabel("line-retract", 2);
@@ -140,7 +138,7 @@ function reset(number) {
         const scroll_btn = document.querySelector(".scroll-button");
         const contact_btn = document.querySelector(".contact-button");
         
-        hero_line.style.height = ""; //unnecessary i believe
+        hero_line.style.height = "";
         hero_line.style.left = "";
         hero_bg.style.width = "";
         scroll_btn.style.opacity = "";

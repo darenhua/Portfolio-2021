@@ -1,16 +1,14 @@
 import './style/main.css';
 import * as THREE from 'three';
-import * as dat from 'dat.gui';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 import screenVertexShader from './shaders/screen/vertex.glsl';
 import screenFragmentShader from './shaders/screen/fragment.glsl';
 
-import Stats from 'stats.js';
 import createMeter from './meter.js'
 import {textEnter, reset} from './textAnimation';
+
 function createMachine(stateMachineDefinition) {
     const machine = {
       value: stateMachineDefinition.initialState,
@@ -39,11 +37,11 @@ initialState: 'hero_page',
 hero_page: {
     actions: {
     onEnter() {
-        console.log('off: onEnter')
+        // console.log('off: onEnter')
         //SWIPE IN
     },
     onExit() {
-        console.log('off: onExit')
+        // console.log('off: onExit')
         //SWIPE OUT
     },
     },
@@ -51,16 +49,11 @@ hero_page: {
     switch: {
         target: 'isec_page',
         action() {
-        console.log('transition action for "switch" in "hero_page" state')
+        // console.log('transition action for "switch" in "hero_page" state')
         camera.position.copy({x:11.23, y:-5.1, z: -1.05});
         orbit_const.x = -1.35;
         orbit_const.y = -6;
-
-        // camera.position.x = 11.23;
-        // camera.position.y = -5.1;
-        // camera.position.z = -1.05;
-        camera_target.set(3.64, -6.4, -0.76);
-        
+        camera_target.set(3.64, -6.4, -0.76);   
         // camera_target.set();
         textEnter(2);
         reset(2);    
@@ -71,21 +64,19 @@ hero_page: {
 isec_page: {
     actions: {
     onEnter() {
-        console.log('on: onEnter')
+        // console.log('on: onEnter')
         //SWIPE IN
-
     },
     onExit() {
-        console.log('on: onExit')
+        // console.log('on: onExit')
         //swipe out
-
     },
     },
     transitions: {
     switch: {
         target: 'aves_page',
         action() {
-        console.log('transition action for "switch" in "select-default" state')
+        // console.log('transition action for "switch" in "select-default" state')
         camera.position.copy({x:10.0, y:-13.23, z: -1.16});
         orbit_const.x = -0.76;
         orbit_const.y = -13.83;
@@ -101,7 +92,7 @@ isec_page: {
     cancel: {
         target: 'hero_page',
         action() {
-        console.log('transition action for "cancel" in "select-default" state')
+        // console.log('transition action for "cancel" in "select-default" state')
         camera.position.copy({x:6.63, y:1.12, z: 0.84});
         orbit_const.x = 0;
         orbit_const.y = 0;
@@ -128,12 +119,12 @@ isec_page: {
 aves_page: {
     actions: {
     onEnter() {
-        console.log('on: onEnter')
+        // console.log('on: onEnter')
         //SWIPE IN
 
     },
     onExit() {
-        console.log('on: onExit')
+        // console.log('on: onExit')
         //swipe out
     },
     },
@@ -141,7 +132,7 @@ aves_page: {
     switch: {
         target: 'cta_page',
         action() {
-        console.log('transition action for "switch" in "select-active" state');
+        // console.log('transition action for "switch" in "select-active" state');
         camera.position.copy({x:12.98, y:-20.82, z: -0.83});
         camera_target.set(100, 100, 100);
         orbit_const.x = -0.83;
@@ -154,7 +145,7 @@ aves_page: {
     cancel: {
         target: "isec_page",
         action() {
-        console.log('transition action for "cancel" in "select-default" state');
+        // console.log('transition action for "cancel" in "select-default" state');
         camera.position.copy({x:11.23, y:-5.1, z: -1.05});
         orbit_const.x = -1.05;
         orbit_const.y = -5.5;
@@ -174,12 +165,12 @@ aves_page: {
 cta_page: {
     actions: {
     onEnter() {
-        console.log('on: onEnter')
+        // console.log('on: onEnter')
         //SWIPE IN
 
     },
     onExit() {
-        console.log('on: onExit')
+        // console.log('on: onExit')
         //swipe out
     },
     },
@@ -193,7 +184,7 @@ cta_page: {
     cancel: {
         target: "aves_page",
         action() {
-        console.log('transition action for "cancel" in "select-default" state')
+        // console.log('transition action for "cancel" in "select-default" state')
         camera.position.copy({x:10.0, y:-13.23, z: -1.16});
         orbit_const.x = -0.76;
         orbit_const.y = -13.83;
@@ -213,7 +204,6 @@ cta_page: {
 })
   
 // Globals
-let stats = null;
 let mixer = null;
 let renderer = null;
 let scene = null;
@@ -225,22 +215,9 @@ const target = new THREE.Vector2();
 let orbit_const = {x: 0, y: 0};
 
 let state = machine.value
-console.log(`current state: ${state}`)
+// console.log(`current state: ${state}`)
 
 function init() {
-    /**
-     * FPS METER
-     */
-    stats = new Stats()
-    stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
-    document.body.appendChild(stats.dom)
-
-    /**
-     * Debug GUI
-     */
-    // const gui = new dat.GUI({
-    //     width: 400
-    // })
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         document.querySelector('#overlay').style.display = 'block';
     }
@@ -263,13 +240,13 @@ function init() {
         // Loaded
         () =>
         {
-            console.log('loaded')
+            // console.log('loaded')
         },
 
         // Progress
         () =>
         {
-            console.log('progress')
+            // console.log('progress')
         }
     );
 
@@ -304,17 +281,11 @@ function init() {
     const isecVideoTexture = new THREE.VideoTexture(isec_video);
     avesVideoTexture.flipY = false;
     isecVideoTexture.flipY = false;
-    /**
-     * Baked Textures
-     */
-    const textureScene01 = textureLoader.load('textures/textureScene01.jpg');
-    textureScene01.flipY = false;
-    textureScene01.encoding = THREE.sRGBEncoding;
 
+    
     const basicMaterial = new THREE.MeshMatcapMaterial({ matcap: matcaps[0]});
     const haloMaterial = new THREE.MeshMatcapMaterial({ matcap: matcaps[1]});
     const metalMaterial = new THREE.MeshMatcapMaterial({ matcap: matcaps[2]});
-    const buildingMaterial = new THREE.MeshMatcapMaterial({ matcap: matcaps[3]});
     const baseMaterial = new THREE.MeshMatcapMaterial({ matcap: matcaps[4]});
     const basicAltMaterial = new THREE.MeshMatcapMaterial({ matcap: matcaps[5], morphTargets: true});
     const neonMaterial = new THREE.MeshMatcapMaterial({ matcap: matcaps[6]});
@@ -350,7 +321,7 @@ function init() {
     gltfLoader.setDRACOLoader(dracoLoader)
 
     gltfLoader.load(
-        'models/portfolio_scene_backup.glb',
+        'models/portfolio_scene.glb',
         (gltf) => {
             gltf.scene.traverse((child) =>
             {
@@ -433,7 +404,7 @@ function init() {
     let scrollCounter = 0;
     let offset;
     let currentBlob;
-    const factor = 10;
+    const factor = 5;
     document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", "0%");
     document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", "0%");
     document.querySelector('#gradient3 > #gradientStop2').setAttribute("offset", "0%");
@@ -526,7 +497,7 @@ function init() {
     document.querySelector(".scroll-button").addEventListener("click", () => {
         if (state === "hero_page") {
             state = machine.transition(state, 'switch');
-            scrollCounter = 3;
+            scrollCounter = 3 * factor;
             document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
         }
     });
@@ -548,7 +519,7 @@ function init() {
                 cta_content.style.transform = "translateY(0px)";
                 
             }
-            scrollCounter = 9;
+            scrollCounter = 9 * factor;
 
             document.querySelector('#gradient1 > #gradientStop2').setAttribute("offset", `100%`);
             document.querySelector('#gradient2 > #gradientStop2').setAttribute("offset", `100%`);
@@ -584,43 +555,13 @@ function init() {
     // Camera
     camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
     
-    //POSITION 1:
     textEnter(1);
     camera.position.copy({x:6.63, y:1.12, z: 0.84});
     camera_target.set(-0.82, 0.55, 0.39);
 
-    // camera.rotation.x = 0;
-    // camera.rotation.y = 1.47;
-    // camera.rotation.z = 0;
-
-    //POSITION 2:
-    // camera.position.copy({x:12.98, y:-6.82, z: -0.83});
-    // camera.rotation.x = 0.01;
-    // camera.rotation.y = 1.6;
-    // camera.rotation.z = 0;
-
-    //POSITION 3:
-    // camera.position.copy({x:8.61, y:-14.83, z: -0.24});
-    // camera.rotation.x = 0.01;
-    // camera.rotation.y = 1.49;
-    // camera.rotation.z = 0;
-
     camera.setFocalLength(50);
     camera.updateProjectionMatrix();
-    // gui.add(camera.position, 'x').min(-10).max(50).step(0.01);
-    // gui.add(camera.position, 'y').min(-50).max(10).step(0.01);
-    // gui.add(camera.position, 'z').min(-50).max(10).step(0.01);
-    // gui.add(camera_target, 'x').min(-50).max(Math.PI * 2).step(0.01);
-    // gui.add(camera_target, 'y').min(-50).max(Math.PI * 2).step(0.01);
-    // gui.add(camera_target, 'z').min(-50).max(Math.PI * 2).step(0.01);
-
     scene.add(camera)
-
-
-    // Orbit Controls
-    // const controls = new OrbitControls(camera, canvas)
-    // controls.enableDamping = true
-
 
     // Renderer
     renderer = new THREE.WebGLRenderer({
@@ -637,7 +578,6 @@ const clock = new THREE.Clock()
 let oldElapsedTime = 0
 
 function loop() {
-    stats.begin()
     createMeter();
 
     const elapsedTime = clock.getElapsedTime();
@@ -657,16 +597,10 @@ function loop() {
         mixer.update(deltaTime * .5)
     }
 
-    // Update controls
-    // controls.update()
-    // console.log(camera.position);
-    // console.log(camera.rotation);
-    // Render
     renderer.render(scene, camera)
 
     // Keep looping
     window.requestAnimationFrame(loop)
-    stats.end()
 }
 init();
 loop();
