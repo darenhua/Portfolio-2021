@@ -15,6 +15,7 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 body,
@@ -31,12 +32,6 @@ html {
   background: #000000;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   /* align our svg to the center of the viewport both horizontally and vertically */
   height: 100vh;
@@ -47,6 +42,89 @@ body {
 .side-content {
   display: flex;
   align-items: center;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 110;
+}
+
+header .logo {
+  height: 38px;
+  margin-left: 30px;
+}
+
+.icon-list {
+  width: 20%;
+  margin-right: 30px;
+  max-width: 50rem;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon-item {
+  list-style: none;
+}
+
+.icon-link {
+  display: inline-flex;
+  font-size: 3rem;
+  text-decoration: none;
+  filter: invert(0.2);
+  width: 3rem;
+  height: 3rem;
+  transition: 0.5s linear;
+  position: relative;
+  z-index: 1;
+  margin: auto;
+}
+
+.icon-link:hover {
+  filter: invert(1);
+}
+
+.icon-link img {
+  margin: auto;
+  width: 25px;
+}
+
+.icon-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 3rem;
+  height: 3rem;
+  background: #000;
+  border-radius: 50%;
+  z-index: -1;
+  transform: scale(0);
+  transition: 0.3s cubic-bezier(0.95, 0.32, 0.37, 1.21);
+}
+
+.icon-link:hover::before {
+  transform: scale(1);
+}
+
+.icon-item:nth-child(1) a:hover:before {
+  background: #1bbfa0;
+}
+
+.icon-item:nth-child(2) a:hover:before {
+  background: #ec500f;
+}
+
+.icon-item:nth-child(3) a:hover:before {
+  background: #ff884a;
 }
 
 /**f uture refactor: use section.loading-meter as position relative, and position with that, then use absolute-relative thing? **/
@@ -310,7 +388,7 @@ svg {
   color: #363636;
 
   font-family: Sora;
-  right: 120px;
+  right: 130px;
   bottom: 50px;
   padding: 50px;
   border-radius: 10px;
@@ -345,8 +423,8 @@ img {
 .isec-logo {
   position: absolute;
   z-index: 2;
-  right: 100px;
-  top: 80px;
+  right: 110px;
+  bottom: 410px;
   background: white;
   padding: 10px 10px 6px 10px;
   border-radius: 8px;
@@ -356,7 +434,7 @@ img {
 .isec-work-number {
   position: absolute;
   z-index: 1;
-  right: 495px;
+  right: 505px;
   bottom: 150px;
   color: white;
   opacity: 0;
@@ -455,7 +533,7 @@ img {
   position: absolute;
   z-index: 2;
   left: 60px;
-  top: 100px;
+  bottom: 420px;
   background: white;
   padding: 10px 10px 6px 10px;
   border-radius: 8px;
@@ -593,7 +671,7 @@ img {
 
 .temporary {
   width: 100%;
-  height: 250px;
+  height: 50%;
   margin: 0 auto;
   margin-top: 20px;
   background: #d7d7d7;
@@ -639,3 +717,220 @@ img {
   text-decoration: none;
   color: #8c1515;
 }
+
+@media screen and (min-width: 1600px) {
+  .isec-logo {
+    right: 180px;
+  }
+  .isec-work-number {
+    right: 575px;
+  }
+  .isec-text-content {
+    right: 200px;
+  }
+  .isec-enter-line {
+    right: 200px;
+  }
+  .aves-logo {
+    left: 130px;
+  }
+  .aves-work-number {
+    left: 530px;
+  }
+  .aves-text-content {
+    left: 150px;
+  }
+  .aves-enter-line {
+    left: 150px;
+  }
+  .hero-text {
+    left: 150px;
+  }
+}
+
+#overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #e7e7e7;
+  z-index: 999;
+  display: none;
+}
+
+#overlay p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-weight: bold;
+  font-size: 24px;
+  color: #363636;
+  text-align: center;
+  font-family: Sora, sans-serif;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (min-height: 650px) {
+  .isec-enter-line {
+    display: none;
+  }
+  .aves-enter-line {
+    display: none;
+  }
+}
+
+@media screen and (min-height: 620px) {
+  .isec-text-content {
+    bottom: 100px;
+  }
+  .isec-logo {
+    bottom: 460px;
+  }
+  .isec-work-number {
+    bottom: 200px;
+  }
+  .aves-text-content {
+    bottom: 100px;
+  }
+  .aves-logo {
+    bottom: 470px;
+  }
+  .aves-work-number {
+    bottom: 200px;
+  }
+}
+
+@media screen and (min-height: 710px) {
+  .isec-text-content {
+    bottom: 150px;
+  }
+  .isec-logo {
+    bottom: 510px;
+  }
+  .isec-work-number {
+    bottom: 250px;
+  }
+  .aves-text-content {
+    bottom: 150px;
+  }
+  .aves-logo {
+    bottom: 520px;
+  }
+  .aves-work-number {
+    bottom: 250px;
+  }
+}
+
+@media screen and (min-height: 830px) {
+  .isec-text-content {
+    bottom: 200px;
+  }
+  .isec-logo {
+    bottom: 560px;
+  }
+  .isec-work-number {
+    bottom: 300px;
+  }
+  .aves-text-content {
+    bottom: 200px;
+  }
+  .aves-logo {
+    bottom: 570px;
+  }
+  .aves-work-number {
+    bottom: 300px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .title {
+    font-size: 72px;
+  }
+  .subheading {
+    font-size: 22px;
+  }
+  .hero-text .subheading {
+    width: 420px;
+  }
+  .button-style {
+    font-size: 12px;
+  }
+  .scroll-button {
+    margin-top: 250px;
+  }
+  .contact-button {
+    margin-left: 20px;
+    margin-top: 250px;
+  }
+  .isec-text .body-text {
+    width: 250px;
+  }
+  .isec-work-number {
+    right: 470px;
+  }
+  .aves-text .body-text {
+    width: 250px;
+  }
+  .aves-work-number {
+    left: 425px;
+  }
+  .cta-text-content .subheading {
+    font-size: 16px;
+    width: 450px;
+  }
+}
+
+@media screen and (max-width: 1120px) {
+  .isec-text .body-text {
+    font-size: 14px;
+    width: 200px;
+  }
+  .isec-text .subheading {
+    font-size: 16px;
+  }
+  .isec-work-number {
+    right: 420px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .isec-text .body-text {
+    font-size: 14px;
+    width: 200px;
+  }
+  .isec-text .subheading {
+    font-size: 16px;
+  }
+  .cta-text-content .subheading {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .hero-text .title {
+    font-size: 64px;
+    margin-left: 0px;
+  }
+  .subheading {
+    font-size: 18px;
+  }
+  .hero-text .subheading {
+    margin-left: 0px;
+    width: 380px;
+  }
+  .scroll-button {
+    margin-top: 220px;
+    margin-left: 0px;
+  }
+  .contact-button {
+    margin-left: 20px;
+    margin-top: 220px;
+  }
+  .cta-text-content .heading {
+    font-size: 36px;
+  }
+  .cta-text-content .subheading {
+    width: 300px;
+  }
+}
+
+/** 850 is cutoff **/
