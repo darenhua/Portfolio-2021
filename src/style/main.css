@@ -123,6 +123,10 @@ header .logo {
 }
 
 .icon-item:nth-child(3) a:hover:before {
+  background: #d044b0;
+}
+
+.icon-item:nth-child(4) a:hover:before {
   background: #ff884a;
 }
 
