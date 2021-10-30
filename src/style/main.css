@@ -374,7 +374,7 @@ svg {
   z-index: 2;
   background: #e7e7e7;
   color: #363636;
-
+  min-height: 400px;
   font-family: Sora;
   right: 130px;
   bottom: 50px;
@@ -384,7 +384,7 @@ svg {
 }
 
 .isec-text .subheading {
-  margin: 5px 0px 30px 0px;
+  margin: 5px 0px 10px 0px;
   font-size: 20px;
 }
 
@@ -412,11 +412,15 @@ img {
   position: absolute;
   z-index: 2;
   right: 110px;
-  bottom: 410px;
+  bottom: 450px;
   background: white;
   padding: 10px 10px 6px 10px;
   border-radius: 8px;
   opacity: 0;
+}
+
+.link-text {
+  color: #c71919;
 }
 
 .isec-work-number {
@@ -481,7 +485,7 @@ img {
   font-family: Sora;
   padding: 50px;
   clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-
+  min-height: 400px;
   border-radius: 10px;
 }
 
@@ -642,7 +646,7 @@ img {
 .cta-text-content .subheading {
   font-size: 20px;
   margin-top: 5px;
-  width: 500px;
+  width: 520px;
 }
 
 .temporary {
@@ -663,13 +667,13 @@ img {
 }
 
 .cta-email {
-  width: 280px;
+  width: 350px;
   height: 50px;
   margin-top: 30px;
   display: flex;
   float: right;
   font-family: Sora, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   align-items: center;
 }
